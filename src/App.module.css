@@ -1,0 +1,57 @@
+.field {
+	flex-direction: flex;
+	flex-direction: row;
+	width: 320px;
+	gap: 15px;
+	margin: 0 auto;
+	padding-left: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	position: relative;
+	box-shadow: 1px 1px 2px black;
+	border-radius: 5px;
+	background: gray;
+}
+.dev {
+	margin-top: 10px;
+	width: 400px;
+	border: 1px solid black;
+	width: 340px;
+	height: 27px;
+	padding: 5px;
+	background: teal;
+	color: #fff;
+}
+.element {
+	position: absolute;
+	z-index: 111;
+	margin-left: 33px;
+	font-size: 40px;
+	margin-top: -26px;
+}
+.gamerStape {
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+	padding-bottom: 5px;
+}
+.container {
+	margin: 0 auto;
+	border-radius: 20px;
+	/* background: gray; */
+	width: 440px;
+	padding: 5px 5px;
+}
+.beginEnd {
+	padding: 5px 5px;
+	border-radius: 3px;
+	border: none;
+	font-weight: bold;
+	background: yellow;
+	text-transform: uppercase;
+	border: 1px solid teal;
+}
+.beginEnd:hover {
+	background: teal;
+	color: white;
+}
