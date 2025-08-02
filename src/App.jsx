@@ -6,14 +6,15 @@ import ShowDev from "./components/ShowDev/ShowDev";
 import ShowStep from "./components/ShowStep/ShowStep";
 function App() {
 	const [showGame, setShowGame] = useState(false);
-	const [arrGame, setArrGame] = useState(["", "", "", "", "", "", "", "", ""]);
+	let [arrGame, setArrGame] = useState(["", "", "", "", "", "", "", "", ""]);
 	const [gamers, setGamers] = useState(true);
 	const [countStep, setCountStep] = useState(0);
-	useEffect(() => {
-		win();
-	}, [arrGame]);
-	const win = () => {
-		const rez = arrGame;
+	// useEffect(() => {
+	// 	win();
+	// }, [arrGame]);
+	const win = (rez) => {
+		// const rez = arrGame;
+		console.log(countStep);
 		if (
 			(rez[0] === "X" && rez[1] === "X" && rez[2] === "X") ||
 			(rez[3] === "X" && rez[4] === "X" && rez[5] === "X") ||
@@ -21,13 +22,13 @@ function App() {
 			(rez[0] === "X" && rez[4] === "X" && rez[8] === "X") ||
 			(rez[2] === "X" && rez[4] === "X" && rez[6] === "X") ||
 			(rez[0] === "X" && rez[3] === "X" && rez[6] === "X") ||
-			(rez[1] === "X" && rez[4] === "O" && rez[7] === "X") ||
+			(rez[1] === "X" && rez[4] === "X" && rez[7] === "X") ||
 			(rez[2] === "X" && rez[5] === "X" && rez[8] === "X")
 		) {
-			setCountStep(0);
-			alert("Выграл игрок игравший за X");
 			setArrGame(["", "", "", "", "", "", "", "", ""]);
-			setGamers(!gamers);
+			setGamers(() => true);
+			setCountStep(() => 0);
+			alert("Выграл игрок игравший за X");
 		}
 
 		if (
@@ -40,34 +41,38 @@ function App() {
 			(rez[1] === "O" && rez[4] === "O" && rez[7] === "O") ||
 			(rez[2] === "O" && rez[5] === "O" && rez[8] === "O")
 		) {
+			setArrGame(["", "", "", "", "", "", "", "", ""]);
+			setCountStep(() => 0);
+			setGamers(() => true);
 			alert("Выграл игрок игравший за O");
-			setArrGame(["", "", "", "", "", "", "", "", ""]);
-			setCountStep(0);
-			setGamers(!gamers);
 		}
-		if (countStep === 9) {
-			setArrGame(["", "", "", "", "", "", "", "", ""]);
-			setCountStep(0);
+		if (countStep + 1 === 9) {
+			setCountStep(() => 0);
 			setGamers(!gamers);
 			alert(`Ничья`);
+			setArrGame(["", "", "", "", "", "", "", "", ""]);
 		}
 	};
 
 	function putZnak(index) {
 		const rezGame = arrGame;
+		console.log(rezGame);
 		if (gamers == true) {
-			setCountStep(countStep + 1);
 			const rez = rezGame.map((e, i) => {
 				if (i === index) {
 					return "X";
 				}
 				return e;
 			});
-
-			setArrGame(rez);
+			setCountStep(() => {
+				return countStep + 1;
+			});
+			setArrGame(() => rez);
 			setGamers(!gamers);
+			win(rez);
 		} else {
-			setCountStep(countStep + 1);
+			let cc = countStep + 1;
+			setCountStep(() => cc);
 			const rez = rezGame.map((e, i) => {
 				if (i === index) {
 					return "O";
@@ -77,8 +82,13 @@ function App() {
 			});
 
 			console.log(rez);
-			setArrGame(rez);
+			const c = countStep + 1;
+			setCountStep(() => {
+				return c;
+			});
+			setArrGame(() => rez);
 			setGamers(!gamers);
+			win(rez);
 		}
 		// win();
 	}
