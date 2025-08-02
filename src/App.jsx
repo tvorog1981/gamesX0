@@ -46,6 +46,9 @@ function App() {
 			setGamers(!gamers);
 		}
 		if (countStep === 9) {
+			setArrGame(["", "", "", "", "", "", "", "", ""]);
+			setCountStep(0);
+			setGamers(!gamers);
 			alert(`Ничья`);
 		}
 	};
