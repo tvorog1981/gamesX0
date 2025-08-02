@@ -8,6 +8,7 @@ function App() {
 	const [showGame, setShowGame] = useState(false);
 	const [arrGame, setArrGame] = useState(["", "", "", "", "", "", "", "", ""]);
 	const [gamers, setGamers] = useState(true);
+	const [countStep, setCountStep] = useState(0);
 	useEffect(() => {
 		win();
 	}, [arrGame]);
@@ -23,6 +24,7 @@ function App() {
 			(rez[1] === "X" && rez[4] === "O" && rez[7] === "X") ||
 			(rez[2] === "X" && rez[5] === "X" && rez[8] === "X")
 		) {
+			setCountStep(0);
 			alert("Выграл игрок игравший за X");
 			setArrGame(["", "", "", "", "", "", "", "", ""]);
 			setGamers(!gamers);
@@ -40,13 +42,18 @@ function App() {
 		) {
 			alert("Выграл игрок игравший за O");
 			setArrGame(["", "", "", "", "", "", "", "", ""]);
+			setCountStep(0);
 			setGamers(!gamers);
+		}
+		if (countStep === 9) {
+			alert(`Ничья`);
 		}
 	};
 
 	function putZnak(index) {
 		const rezGame = arrGame;
 		if (gamers == true) {
+			setCountStep(countStep + 1);
 			const rez = rezGame.map((e, i) => {
 				if (i === index) {
 					return "X";
@@ -57,6 +64,7 @@ function App() {
 			setArrGame(rez);
 			setGamers(!gamers);
 		} else {
+			setCountStep(countStep + 1);
 			const rez = rezGame.map((e, i) => {
 				if (i === index) {
 					return "O";
@@ -64,11 +72,12 @@ function App() {
 
 				return e;
 			});
+
 			console.log(rez);
 			setArrGame(rez);
 			setGamers(!gamers);
 		}
-		win();
+		// win();
 	}
 	const Show = () => {
 		setShowGame(!showGame);
