@@ -1,0 +1,11 @@
+.dev {
+	margin-top: 10px;
+	width: 400px;
+	border: 1px solid black;
+	width: 340px;
+	height: 27px;
+	padding: 5px;
+	background: teal;
+	color: #fff;
+	box-shadow: 1px 1px 2px black;
+}

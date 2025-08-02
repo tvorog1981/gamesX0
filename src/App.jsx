@@ -1,38 +1,76 @@
-import Button from "./UI/Button/Button";
 import styles from "./App.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import ListItem from "./components/listItem/ListItme";
+import ShowBegin from "./components/show/ShowBegin";
+import ShowDev from "./components/ShowDev/ShowDev";
+import ShowStep from "./components/ShowStep/ShowStep";
 function App() {
 	const [showGame, setShowGame] = useState(false);
 	const [arrGame, setArrGame] = useState(["", "", "", "", "", "", "", "", ""]);
 	const [gamers, setGamers] = useState(true);
+	useEffect(() => {
+		win();
+	}, [arrGame]);
+	const win = () => {
+		const rez = arrGame;
+		if (
+			(rez[0] === "X" && rez[1] === "X" && rez[2] === "X") ||
+			(rez[3] === "X" && rez[4] === "X" && rez[5] === "X") ||
+			(rez[6] === "X" && rez[7] === "X" && rez[8] === "X") ||
+			(rez[0] === "X" && rez[4] === "X" && rez[8] === "X") ||
+			(rez[2] === "X" && rez[4] === "X" && rez[6] === "X") ||
+			(rez[0] === "X" && rez[3] === "X" && rez[6] === "X") ||
+			(rez[1] === "X" && rez[4] === "O" && rez[7] === "X") ||
+			(rez[2] === "X" && rez[5] === "X" && rez[8] === "X")
+		) {
+			alert("Выграл игрок игравший за X");
+			setArrGame(["", "", "", "", "", "", "", "", ""]);
+			setGamers(!gamers);
+		}
+
+		if (
+			(rez[0] === "O" && rez[1] === "O" && rez[2] === "O") ||
+			(rez[3] === "O" && rez[4] === "O" && rez[5] === "O") ||
+			(rez[6] === "O" && rez[7] === "O" && rez[8] === "O") ||
+			(rez[0] === "O" && rez[4] === "O" && rez[8] === "O") ||
+			(rez[2] === "O" && rez[4] === "O" && rez[6] === "O") ||
+			(rez[0] === "O" && rez[3] === "O" && rez[6] === "O") ||
+			(rez[1] === "O" && rez[4] === "O" && rez[7] === "O") ||
+			(rez[2] === "O" && rez[5] === "O" && rez[8] === "O")
+		) {
+			alert("Выграл игрок игравший за O");
+			setArrGame(["", "", "", "", "", "", "", "", ""]);
+			setGamers(!gamers);
+		}
+	};
+
 	function putZnak(index) {
+		const rezGame = arrGame;
 		if (gamers == true) {
-			const rez = arrGame.map((e, i) => {
+			const rez = rezGame.map((e, i) => {
 				if (i === index) {
 					return "X";
 				}
-
-				console.log(i);
 				return e;
 			});
-			console.log(rez);
+
 			setArrGame(rez);
 			setGamers(!gamers);
 		} else {
-			const rez = arrGame.map((e, i) => {
+			const rez = rezGame.map((e, i) => {
 				if (i === index) {
 					return "O";
 				}
 
-				console.log(i);
 				return e;
 			});
 			console.log(rez);
 			setArrGame(rez);
 			setGamers(!gamers);
 		}
+		win();
 	}
-	const ShowGame = () => {
+	const Show = () => {
 		setShowGame(!showGame);
 		if (showGame === false) {
 			setArrGame(["", "", "", "", "", "", "", "", ""]);
@@ -40,40 +78,14 @@ function App() {
 	};
 	return (
 		<>
-			<button className={styles.beginEnd} onClick={ShowGame}>
-				{!showGame ? "Начать игру" : "Закончить игру"}
-			</button>
-			{showGame && (
-				<div className={styles.dev}>
-					Разработчик игры Сметанкин Денис Николаевич
-				</div>
-			)}
+			<ShowBegin Show={Show} showGame={showGame} />
+			<ShowDev showGame={showGame} />
+
 			{showGame && (
 				<div className={styles.container}>
-					<div className={styles.gamerStape}>
-						{gamers ? "Ход Игрока:X" : "Ход Игрока:0"}
-					</div>
-
+					<ShowStep gamers={gamers} />
 					<div className={styles.field}>
-						{arrGame.map((element, index) => {
-							return (
-								<Button
-									type="button"
-									key={index}
-									onClick={() => putZnak(index)}
-								>
-									<div className={styles.element}>{element}</div>
-								</Button>
-							);
-						})}
-						{/* <Button></Button>
-      <Button></Button>
-      <Button></Button>
-      <Button></Button>
-      <Button></Button>
-      <Button></Button>
-      <Button></Button>
-      <Button></Button> */}
+						<ListItem list={arrGame} putZnak={putZnak} />
 					</div>
 				</div>
 			)}
