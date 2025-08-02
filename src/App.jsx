@@ -1,5 +1,5 @@
 import styles from "./App.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ListItem from "./components/listItem/ListItme";
 import ShowBegin from "./components/show/ShowBegin";
 import ShowDev from "./components/ShowDev/ShowDev";
@@ -45,7 +45,7 @@ function App() {
 		}
 		if (countStep + 1 === 9) {
 			setCountStep(() => 0);
-			setGamers(!gamers);
+			setGamers(() => true);
 			alert(`Ничья`);
 			setArrGame(["", "", "", "", "", "", "", "", ""]);
 		}
