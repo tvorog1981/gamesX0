@@ -90,6 +90,7 @@ function App() {
 	}
 	const Show = () => {
 		setGamers(true);
+		setCountStep(() => 0);
 		setShowGame(!showGame);
 		if (showGame === false) {
 			setArrGame(["", "", "", "", "", "", "", "", ""]);
