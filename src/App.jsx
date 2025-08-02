@@ -9,11 +9,8 @@ function App() {
 	let [arrGame, setArrGame] = useState(["", "", "", "", "", "", "", "", ""]);
 	const [gamers, setGamers] = useState(true);
 	const [countStep, setCountStep] = useState(0);
-	// useEffect(() => {
-	// 	win();
-	// }, [arrGame]);
+
 	const win = (rez) => {
-		// const rez = arrGame;
 		console.log(countStep);
 		if (
 			(rez[0] === "X" && rez[1] === "X" && rez[2] === "X") ||
@@ -58,15 +55,16 @@ function App() {
 		const rezGame = arrGame;
 		console.log(rezGame);
 		if (gamers == true) {
+			setCountStep(() => {
+				return countStep + 1;
+			});
 			const rez = rezGame.map((e, i) => {
 				if (i === index) {
 					return "X";
 				}
 				return e;
 			});
-			setCountStep(() => {
-				return countStep + 1;
-			});
+
 			setArrGame(() => rez);
 			setGamers(!gamers);
 			win(rez);
@@ -81,17 +79,17 @@ function App() {
 			});
 
 			console.log(rez);
-			const c = countStep + 1;
+
 			setCountStep(() => {
-				return c;
+				return countStep + 1;
 			});
 			setArrGame(() => rez);
 			setGamers(!gamers);
 			win(rez);
 		}
-		// win();
 	}
 	const Show = () => {
+		setGamers(true);
 		setShowGame(!showGame);
 		if (showGame === false) {
 			setArrGame(["", "", "", "", "", "", "", "", ""]);
