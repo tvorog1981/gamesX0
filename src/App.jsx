@@ -71,8 +71,7 @@ function App() {
 			setGamers(!gamers);
 			win(rez);
 		} else {
-			let cc = countStep + 1;
-			setCountStep(() => cc);
+			setCountStep(() => countStep + 1);
 			const rez = rezGame.map((e, i) => {
 				if (i === index) {
 					return "O";
